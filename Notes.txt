@@ -1,0 +1,180 @@
+Program Instructions:
+====================
+Each Instructions consist of upto four fields :
+
+name    operation   operand(s)  comment
+
+START   MOV CX,5    ;initilize counter
+
+Numbers In Assembly:
+===================
+Each number can contain its type at the end of the nummber B is binary and H is hexa and if no type is given by defualt it is set as decimal.
+
+decimal             D || d
+binary              B || b
+hex                 H || h
+For the case of hexa decimal it should begin with a decimal number and h should be written at the end in order to specify that its a hexa decimal number.
+
+Characters:
+==========
+Characters or charter string must be enclosed in single or double qutotions:
+For example 'A' or "Hello $" Characters are translatated into asci code by Assembler so its the same as writing as 41h asci code for the A.
+
+Pseudo-ops:
+==========
+In an assembler directive, the operation field contains a pseudo-operation code (pseudo-op). Pseudo-ops are not translated into machine code; 
+rather, they simply tell the assembler to do something. For example, the 
+PROC pseudo-op is used to create a procedure.
+
+Data Definig Pseudo-ops:
+========================
+Pseudo-op           Stands for 
+DB                  define byte  
+DW                  define word 
+DD                  define doubleword (two consecutive words) 
+DQ                  define quadword (four consecutive words)  
+DT                  define tenbytes (ten consecutive bytes)
+
+Variables:
+=========
+Variables play the same role in assembly language that they do in 
+high-level languages. Each variable has a data type and is assigned a m1::mory 
+address by the program. The data-defining pseudo-ops and their meanings 
+are listed in above table Each pseudo-op can be used to set aside one or more 
+data items of the given type. 
+
+For example:
+    APLHA   DB  4 
+
+;It causes assembler to assocaite byte space with the name ALPHA and initilize it to 4
+;We can also use ? for the intial value which set aside and uninilized byte.
+
+    byte    DB  ?
+
+Arrays:
+======
+In assembly language, an array is just a sequence of memory bytes 
+or words. for example, to define a three-byte array called B_ARRAY, whose 
+initial values are 10h, 20h, and 30h, we can write:
+
+    B_ARRAY DB 10H,20H,30H 
+
+The name B_ARRAY is associated with the first of these bytes, B_ARRAY+l 
+with the second, and B_ARRAY+2 with the third.
+
+High and Low Bytes of a Word 
+=============================
+Sometimes we need to refer to the high and low bytes of a word 
+variable. Suppose we define:
+    WORD1   DW  1234H
+The low byte of WORD1 contains 34h, and the high byte contains 12h. The low byte has symbolic address WORD1, and the high byte has symbolic address WORD1+1. 
+
+
+Character String:
+=================
+An array of asci code can be initilized with string of Characters.
+
+    Letters DB  'ABC'
+It is possible to combine characters and numbers in one definition for example:
+
+    MSG DB  'Hello', 0AH, 0DH, 'S'
+
+EQU (Equates):
+==============
+It is use to assign values to the constants. 
+For example:
+
+    LF EQU  0Ah
+
+assign value 0Ah to the consstant LF. Another example could be:
+     PROMPT EQU "Please Enter the Letter", "$"
+    MSG DB PROMPT
+
+No memory is allocated to the equ names.
+
+NEG Command:
+===========
+    It is use to negate the number. I does so by taking twos complemet of the value and replacing it with that.
+
+    NEG destination
+    NEG BX
+
+Memory Model:
+=============
+Syntax:
+    .Model memory_model
+Model           Description
+
+SMALL           code in one segment data in one segment 
+
+MEDIUM          code in more than one segment data in one segment
+
+COMPACT         code in one segment data in more than one segment 
+
+LARGE           code in more than one segment data in more than one segement
+                no array larger than 64k byte
+ 
+HUGE            code in more than one segment data in more than'one segment 
+                arrays may be larger than 64k bytes
+ 
+
+
+Data segement:
+=============
+    A program's data segment contains all the variable deflnlUons. 
+    Constant definitions are often made here as well, but they may be placed 
+    elsewhere ln the program since no memory allocation ls involved. To declare 
+    a data segment, we use the directive . DATA, followed by variable and constant 
+    declarations. For example:
+
+    .DATA 
+        WOROl   DW 2  
+        W0RD2   DW 5  
+        MSG     DB 'THIS IS A MESSAGE $' 
+        MASK    EQU 10010010B 
+
+
+MOV Instruction:
+================
+The MOV Instruction is used to transfer data between ref:bters, between a register and a memory location, or to move a number directly into a register or memory location.
+The syntax is:
+    MOV destination,source
+example:
+    MOV AX,WORD1
+
+XCHG Instruction:
+=================
+It is use to exchange the contents of two registers.
+
+XCHG destination,source
+XCHG AX, BX
+
+INC Command:
+============
+The inc command is use to increase the value of register to one.
+INC AX
+
+DEC Command:
+============
+The dec commmand is use to decrease the value of register by one.
+DEC AX
+
+Adderssing:
+===========
+    Immediate Adderssing:
+    =====================
+        We can put something directly into ax and bx but it is not the same for all of the 
+        registers. In order load something into segement register first we have to load it into the ax or bx and then into segemnt register.
+        mov ax, 1234h
+        mov ex, ax  ;es stands for extra segment.
+
+    Registere Adderssing:
+    =====================
+        Registere Adderssing is nonthing but that data is taken from register. From a regsiter to a register.
+    
+    Direct Memory Adderssing:
+    ========================
+        When we want an address we specify it into two parts we get the segment section which is 16 bit and then offset segemnt which is either an integer value or a register 
+
+
+
